@@ -1,6 +1,8 @@
-import pytest
 from pathlib import Path
-from ctx.store import PackStore, Pack
+
+import pytest
+
+from ctx.store import Pack, PackStore
 
 
 def test_save_global_pack(tmp_path):
@@ -29,7 +31,11 @@ def test_load_global_pack(tmp_path):
 def test_load_local_takes_priority(tmp_path):
     store = PackStore(global_dir=tmp_path / "packs")
     store.save(Pack(name="myproject", content="global content"), scope="global")
-    store.save(Pack(name="myproject", content="local content"), scope="local", local_dir=tmp_path / ".ctx")
+    store.save(
+        Pack(name="myproject", content="local content"),
+        scope="local",
+        local_dir=tmp_path / ".ctx",
+    )
     loaded = store.load("myproject", local_dir=tmp_path / ".ctx")
     assert loaded is not None
     assert loaded.content == "local content"

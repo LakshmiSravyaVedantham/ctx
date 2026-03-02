@@ -1,6 +1,7 @@
 from pathlib import Path
 from unittest.mock import patch
-from ctx.injector import inject_claude, inject_clipboard, InjectionResult
+
+from ctx.injector import InjectionResult, inject_claude, inject_clipboard
 
 
 def test_inject_claude_writes_file(tmp_path):

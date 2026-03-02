@@ -1,5 +1,6 @@
 from pathlib import Path
-from ctx.scanner import scan_project, ScanResult
+
+from ctx.scanner import ScanResult, scan_project
 
 
 def test_scan_detects_python(tmp_path):

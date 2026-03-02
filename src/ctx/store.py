@@ -14,7 +14,9 @@ class PackStore:
     def __init__(self, global_dir: Path = GLOBAL_DIR) -> None:
         self.global_dir = global_dir
 
-    def save(self, pack: Pack, scope: str = "global", local_dir: Path | None = None) -> None:
+    def save(
+        self, pack: Pack, scope: str = "global", local_dir: Path | None = None
+    ) -> None:
         target = (local_dir or Path(".ctx")) if scope == "local" else self.global_dir
         target.mkdir(parents=True, exist_ok=True)
         (target / f"{pack.name}.md").write_text(pack.content)

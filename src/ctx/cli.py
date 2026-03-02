@@ -1,7 +1,8 @@
 """CLI entry point for ctx."""
 
-import click
 from pathlib import Path
+
+import click
 
 from ctx import __version__
 from ctx.injector import inject_claude, inject_clipboard
@@ -23,8 +24,15 @@ def main() -> None:
 
 @main.command()
 @click.argument("name")
-@click.option("--notes", default="", help="Add notes directly (skips interactive prompt)")
-@click.option("--scope", default="global", type=click.Choice(["global", "local"]), help="Where to save the pack")
+@click.option(
+    "--notes", default="", help="Add notes directly (skips interactive prompt)"
+)
+@click.option(
+    "--scope",
+    default="global",
+    type=click.Choice(["global", "local"]),
+    help="Where to save the pack",
+)
 def save(name: str, notes: str, scope: str) -> None:
     """Scan current project and save as a context pack."""
     click.echo(f"Scanning {Path.cwd().name} ...")
@@ -76,9 +84,12 @@ def show(name: str) -> None:
 
 @main.command()
 @click.argument("name")
-@click.option("--target", default="clipboard",
-              type=click.Choice(["claude", "clipboard", "chatgpt"]),
-              help="Where to inject")
+@click.option(
+    "--target",
+    default="clipboard",
+    type=click.Choice(["claude", "clipboard", "chatgpt"]),
+    help="Where to inject",
+)
 def inject(name: str, target: str) -> None:
     """Inject a context pack into Claude Code or clipboard."""
     pack = _store.load(name, local_dir=_local_dir())
